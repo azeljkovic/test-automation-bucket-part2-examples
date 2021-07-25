@@ -1,0 +1,4 @@
+{
+  "baseURL": "https://restful-booker.herokuapp.com",
+  "getBookings": "/booking"
+}
