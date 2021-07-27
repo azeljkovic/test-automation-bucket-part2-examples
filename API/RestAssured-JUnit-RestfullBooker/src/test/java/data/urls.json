@@ -1,4 +1,4 @@
 {
-  "baseURL": "https://restful-booker.herokuapp.com",
+  "baseURL": "http://localhost:3001",
   "getBookings": "/booking"
 }
