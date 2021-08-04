@@ -1,4 +1,0 @@
-{
-  "baseURL": "http://localhost:3001",
-  "getBookings": "/booking"
-}
