@@ -1,6 +1,7 @@
 import data.urls;
 import data.dataGetBookingIDs;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.*;
@@ -8,6 +9,16 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 public class getBookingIDs {
+    @BeforeAll
+    public static void checkApiAvailibility(){
+        given().
+        when().
+            get(urls.base + urls.ping).
+        then().
+            assertThat().
+                statusCode(201);
+    }
+
     @Test
     public void getAllBookingIDs() {
         given().
@@ -143,11 +154,11 @@ public class getBookingIDs {
     @Test
     public void getBookingIDByInvalidCheckout() {
         given().
-                param("checkout", dataGetBookingIDs.invalidCheckinCheckout).
-                when().
-                get(urls.base + urls.getBookingIDs).
-                then().
-                assertThat().
+            param("checkout", dataGetBookingIDs.invalidCheckinCheckout).
+        when().
+            get(urls.base + urls.getBookingIDs).
+        then().
+            assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
                 body("isEmpty()", is(true));
