@@ -1,5 +1,5 @@
-import data.urls;
-import data.dataGetBookingIDs;
+import data.Urls;
+import data.DataGetBookingIDs;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,12 +8,12 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-public class getBookingIDs {
+public class GetBookingIDs {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().
         when().
-            get(urls.base + urls.ping).
+            get(Urls.BASE + Urls.PING).
         then().
             assertThat().
                 statusCode(201);
@@ -23,7 +23,7 @@ public class getBookingIDs {
     public void getAllBookingIDs() {
         given().
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
@@ -34,22 +34,22 @@ public class getBookingIDs {
     @Test
     public void getBookingIDByName() {
         given().
-            param("firstname", dataGetBookingIDs.firstname).
+            param("firstname", DataGetBookingIDs.FIRSTNAME).
         when().
-                get(urls.base + urls.booking).
+                get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
-                body("bookingid[0]", equalTo(dataGetBookingIDs.bookingID));
+                body("bookingid[0]", equalTo(DataGetBookingIDs.BOOKING_ID));
     }
 
     @Test
     public void getBookingIDByNonexistentName() {
         given().
-            param("firstname", dataGetBookingIDs.nonexistentFirstname).
+            param("firstname", DataGetBookingIDs.NONEXISTENT_FIRSTNAME).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
             statusCode(200).
@@ -61,22 +61,22 @@ public class getBookingIDs {
     @Test
     public void getBookingIDByLastName() {
         given().
-            param("lastname", dataGetBookingIDs.lastname).
+            param("lastname", DataGetBookingIDs.LASTNAME).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
-                body("bookingid[0]", equalTo(dataGetBookingIDs.bookingID));
+                body("bookingid[0]", equalTo(DataGetBookingIDs.BOOKING_ID));
     }
 
     @Test
     public void getBookingIDByNonexistentLastName() {
         given().
-            param("lastname", dataGetBookingIDs.nonexistentLastname).
+            param("lastname", DataGetBookingIDs.NONEXISTENT_LASTNAME).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
@@ -88,22 +88,22 @@ public class getBookingIDs {
     @Test
     public void getBookingIDByCheckin() {
         given().
-            param("checkin", dataGetBookingIDs.checkin).
+            param("checkin", DataGetBookingIDs.CHECKIN).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
-                body("bookingid[0]", equalTo(dataGetBookingIDs.bookingID));
+                body("bookingid[0]", equalTo(DataGetBookingIDs.BOOKING_ID));
     }
 
     @Test
     public void getBookingIDByNonexistentCheckin() {
         given().
-            param("checkin", dataGetBookingIDs.nonexistentCheckinCheckout).
+            param("checkin", DataGetBookingIDs.NONEXISTENT_CHECKIN_CHECKOUT).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
@@ -114,9 +114,9 @@ public class getBookingIDs {
     @Test
     public void getBookingIDByInvalidCheckin() {
         given().
-            param("checkin", dataGetBookingIDs.invalidCheckinCheckout).
+            param("checkin", DataGetBookingIDs.INVALID_CHECKIN_CHECKOUT).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
@@ -128,22 +128,22 @@ public class getBookingIDs {
     @Test
     public void getBookingIDByCheckout() {
         given().
-            param("checkout", dataGetBookingIDs.checkout).
+            param("checkout", DataGetBookingIDs.CHECKOUT).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
-                body("bookingid[0]", equalTo(dataGetBookingIDs.bookingID));
+                body("bookingid[0]", equalTo(DataGetBookingIDs.BOOKING_ID));
     }
 
     @Test
     public void getBookingIDByNonexistentCheckout() {
         given().
-            param("checkout", dataGetBookingIDs.nonexistentCheckinCheckout).
+            param("checkout", DataGetBookingIDs.NONEXISTENT_CHECKIN_CHECKOUT).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).
@@ -154,9 +154,9 @@ public class getBookingIDs {
     @Test
     public void getBookingIDByInvalidCheckout() {
         given().
-            param("checkout", dataGetBookingIDs.invalidCheckinCheckout).
+            param("checkout", DataGetBookingIDs.INVALID_CHECKIN_CHECKOUT).
         when().
-            get(urls.base + urls.booking).
+            get(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).

@@ -1,26 +1,22 @@
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import data.urls;
-import data.dataCreateBooking;
+import data.Urls;
+import data.DataCreateBooking;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Type;
 
 import static io.restassured.RestAssured.given;
 
-public class createBooking {
+public class CreateBooking {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().
-                when().
-                get(urls.base + urls.ping).
-                then().
-                assertThat().
-                statusCode(201);
+        when().
+            get(Urls.BASE + Urls.PING).
+        then().
+            assertThat().
+            statusCode(201);
     }
 
     @Test
@@ -29,7 +25,7 @@ public class createBooking {
         when().
             body("").
             contentType(ContentType.JSON).
-            post(urls.base + urls.booking).
+            post(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(400).
@@ -38,14 +34,14 @@ public class createBooking {
 
     @Test
     public void createBookingValid() throws FileNotFoundException {
-        Gson gson = new Gson();
-        Object object = gson.fromJson(new FileReader("src/test/java/data/test.json"), Object.class);
+        DataCreateBooking dataCreateBooking;
+        dataCreateBooking = new DataCreateBooking();
 
         given().
         when().
-            body(object).
+            body(dataCreateBooking.getDataObject()).
             contentType(ContentType.JSON).
-            post(urls.base + urls.booking).
+            post(Urls.BASE + Urls.BOOKING).
         then().
             assertThat().
                 statusCode(200).

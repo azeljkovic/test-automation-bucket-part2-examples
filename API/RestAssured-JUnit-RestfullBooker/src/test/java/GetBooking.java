@@ -1,5 +1,5 @@
-import data.urls;
-import data.dataGetBooking;
+import data.Urls;
+import data.DataGetBooking;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class getBooking {
+public class GetBooking {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().
         when().
-            get(urls.base + urls.ping).
+            get(Urls.BASE + Urls.PING).
         then().
             assertThat().
              statusCode(201);
@@ -22,25 +22,25 @@ public class getBooking {
     public void getBooking() {
         given().
         when().
-            get(urls.base + urls.booking + dataGetBooking.bookingID).
+            get(Urls.BASE + Urls.BOOKING + DataGetBooking.BOOKING_ID).
         then().
             assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
                 //log().body();
-                body("firstname", equalTo(dataGetBooking.firstname)).
-                body("lastname", equalTo(dataGetBooking.lastname)).
-                body("totalprice", equalTo(dataGetBooking.totalprice)).
-                body("depositpaid", equalTo(dataGetBooking.depositpaid)).
-                body("bookingdates.checkin", equalTo(dataGetBooking.checkin)).
-                body("bookingdates.checkout", equalTo(dataGetBooking.checkout));
+                body("firstname", equalTo(DataGetBooking.FIRSTNAME)).
+                body("lastname", equalTo(DataGetBooking.LASTNAME)).
+                body("totalprice", equalTo(DataGetBooking.TOTAL_PRICE)).
+                body("depositpaid", equalTo(DataGetBooking.DEPOSIT_PAID)).
+                body("bookingdates.checkin", equalTo(DataGetBooking.CHECKIN)).
+                body("bookingdates.checkout", equalTo(DataGetBooking.CHECKOUT));
     }
 
     @Test
     public void getNonexistentBooking() {
         given().
         when().
-            get(urls.base + urls.booking + dataGetBooking.nonexistentBookingID).
+            get(Urls.BASE + Urls.BOOKING + DataGetBooking.NONEXISTENT_BOOKING_ID).
         then().
             assertThat().
                 statusCode(404);
@@ -50,7 +50,7 @@ public class getBooking {
     public void getInvalidBooking() {
         given().
                 when().
-                get(urls.base + urls.booking + dataGetBooking.invalidBookingID).
+                get(Urls.BASE + Urls.BOOKING + DataGetBooking.INVALID_BOOKING_ID).
                 then().
                 assertThat().
                 statusCode(404);
