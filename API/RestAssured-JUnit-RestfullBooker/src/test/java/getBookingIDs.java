@@ -23,7 +23,7 @@ public class getBookingIDs {
     public void getAllBookingIDs() {
         given().
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -36,7 +36,7 @@ public class getBookingIDs {
         given().
             param("firstname", dataGetBookingIDs.firstname).
         when().
-                get(urls.base + urls.getBookingIDs).
+                get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -49,7 +49,7 @@ public class getBookingIDs {
         given().
             param("firstname", dataGetBookingIDs.nonexistentFirstname).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
             statusCode(200).
@@ -63,7 +63,7 @@ public class getBookingIDs {
         given().
             param("lastname", dataGetBookingIDs.lastname).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -76,7 +76,7 @@ public class getBookingIDs {
         given().
             param("lastname", dataGetBookingIDs.nonexistentLastname).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -90,7 +90,7 @@ public class getBookingIDs {
         given().
             param("checkin", dataGetBookingIDs.checkin).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -103,7 +103,7 @@ public class getBookingIDs {
         given().
             param("checkin", dataGetBookingIDs.nonexistentCheckinCheckout).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -116,7 +116,7 @@ public class getBookingIDs {
         given().
             param("checkin", dataGetBookingIDs.invalidCheckinCheckout).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -130,7 +130,7 @@ public class getBookingIDs {
         given().
             param("checkout", dataGetBookingIDs.checkout).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -143,7 +143,7 @@ public class getBookingIDs {
         given().
             param("checkout", dataGetBookingIDs.nonexistentCheckinCheckout).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).
@@ -156,7 +156,7 @@ public class getBookingIDs {
         given().
             param("checkout", dataGetBookingIDs.invalidCheckinCheckout).
         when().
-            get(urls.base + urls.getBookingIDs).
+            get(urls.base + urls.booking).
         then().
             assertThat().
                 statusCode(200).

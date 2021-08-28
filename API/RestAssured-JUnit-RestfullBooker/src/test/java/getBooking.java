@@ -1,4 +1,3 @@
-import data.dataGetBookingIDs;
 import data.urls;
 import data.dataGetBooking;
 import io.restassured.http.ContentType;
@@ -23,7 +22,7 @@ public class getBooking {
     public void getBooking() {
         given().
         when().
-            get(urls.base + urls.getBookingIDs + dataGetBooking.bookingID).
+            get(urls.base + urls.booking + dataGetBooking.bookingID).
         then().
             assertThat().
                 statusCode(200).
@@ -41,7 +40,7 @@ public class getBooking {
     public void getNonexistentBooking() {
         given().
         when().
-            get(urls.base + urls.getBookingIDs + dataGetBooking.nonexistentBookingID).
+            get(urls.base + urls.booking + dataGetBooking.nonexistentBookingID).
         then().
             assertThat().
                 statusCode(404);
@@ -51,7 +50,7 @@ public class getBooking {
     public void getInvalidBooking() {
         given().
                 when().
-                get(urls.base + urls.getBookingIDs + dataGetBooking.invalidBookingID).
+                get(urls.base + urls.booking + dataGetBooking.invalidBookingID).
                 then().
                 assertThat().
                 statusCode(404);
