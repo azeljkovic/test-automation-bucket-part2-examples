@@ -1,5 +1,6 @@
-import data.Urls;
+import data.GetToken;
 import data.ParseJSON;
+import data.Urls;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,7 @@ import java.io.FileNotFoundException;
 
 import static io.restassured.RestAssured.given;
 
-public class CreateBooking {
+public class UpdateBooking {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().
@@ -20,25 +21,14 @@ public class CreateBooking {
     }
 
     @Test
-    public void createBookingEmptyBody() {
-        given().
-        when().
-            body("").
-            contentType(ContentType.JSON).
-            post(Urls.BASE + Urls.BOOKING).
-        then().
-            assertThat().
-                statusCode(400).
-                contentType(ContentType.JSON);
-    }
+    public void updateBookingValid() throws FileNotFoundException {
+        String token = GetToken.creteToken();
 
-    @Test
-    public void createBookingValid() throws FileNotFoundException {
-        given().
+        given().header("Cookie", "token=" + token).
         when().
             body(ParseJSON.getDataObject(ParseJSON.TEST_JSON)).
             contentType(ContentType.JSON).
-            post(Urls.BASE + Urls.BOOKING).
+            put(Urls.BASE + Urls.BOOKING + "/2").
         then().
             assertThat().
                 statusCode(200).
