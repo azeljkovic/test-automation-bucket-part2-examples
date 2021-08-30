@@ -22,12 +22,11 @@ public class GetBooking {
     public void getBooking() {
         given().
         when().
-            get(Urls.BASE + Urls.BOOKING + DataGetBooking.BOOKING_ID).
+            get(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID).
         then().
             assertThat().
                 statusCode(200).
                 contentType(ContentType.JSON).
-                //log().body();
                 body("firstname", equalTo(DataGetBooking.FIRSTNAME)).
                 body("lastname", equalTo(DataGetBooking.LASTNAME)).
                 body("totalprice", equalTo(DataGetBooking.TOTAL_PRICE)).
@@ -40,7 +39,7 @@ public class GetBooking {
     public void getNonexistentBooking() {
         given().
         when().
-            get(Urls.BASE + Urls.BOOKING + DataGetBooking.NONEXISTENT_BOOKING_ID).
+            get(Urls.BASE + Urls.BOOKING + Urls.NONEXISTENT_BOOKING_ID).
         then().
             assertThat().
                 statusCode(404);
@@ -49,10 +48,10 @@ public class GetBooking {
     @Test
     public void getInvalidBooking() {
         given().
-                when().
-                get(Urls.BASE + Urls.BOOKING + DataGetBooking.INVALID_BOOKING_ID).
-                then().
-                assertThat().
+        when().
+            get(Urls.BASE + Urls.BOOKING + Urls.INVALID_BOOKING_ID).
+        then().
+            assertThat().
                 statusCode(404);
     }
 }

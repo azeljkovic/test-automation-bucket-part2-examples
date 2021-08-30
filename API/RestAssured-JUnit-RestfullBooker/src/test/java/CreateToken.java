@@ -1,4 +1,3 @@
-import data.DataGetBooking;
 import data.ParseJSON;
 import data.Urls;
 import io.restassured.http.ContentType;
@@ -27,7 +26,7 @@ public class CreateToken {
         when().
             body(ParseJSON.getDataObject(ParseJSON.VALID_CREDENTIALS_JSON)).
             contentType(ContentType.JSON).
-            post(Urls.BASE + "/auth").
+            post(Urls.BASE + Urls.AUTHENTICATION).
         then().
             assertThat().
                 statusCode(200).
@@ -41,7 +40,7 @@ public class CreateToken {
         when().
             body(ParseJSON.getDataObject(ParseJSON.INVALID_CREDENTIALS_JSON)).
             contentType(ContentType.JSON).
-            post(Urls.BASE + "/auth").
+            post(Urls.BASE + Urls.AUTHENTICATION).
         then().
             assertThat().
                 statusCode(200).

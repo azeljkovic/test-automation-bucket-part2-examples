@@ -1,11 +1,6 @@
 package data;
 
 public class DataGetBooking {
-    // valid data
-    public static String BOOKING_ID = "/2";
-    public static String NONEXISTENT_BOOKING_ID = "/33";
-    public static String INVALID_BOOKING_ID = "/lgft";
-
     public static String FIRSTNAME = "Wayne";
     public static String LASTNAME = "Sim";
     public static int TOTAL_PRICE = 900;

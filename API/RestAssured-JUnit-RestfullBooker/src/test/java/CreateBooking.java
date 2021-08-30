@@ -36,7 +36,7 @@ public class CreateBooking {
     public void createBookingValid() throws FileNotFoundException {
         given().
         when().
-            body(ParseJSON.getDataObject(ParseJSON.TEST_JSON)).
+            body(ParseJSON.getDataObject(ParseJSON.VALID_BOOKING_JSON)).
             contentType(ContentType.JSON).
             post(Urls.BASE + Urls.BOOKING).
         then().

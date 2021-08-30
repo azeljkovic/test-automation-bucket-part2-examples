@@ -26,7 +26,7 @@ public class DeleteBooking {
 
         given().header("Cookie", "token=" + token).
         when().
-            delete(Urls.BASE + Urls.BOOKING + "/5").
+            delete(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID_FOR_DELETION).
         then().
             assertThat().
                 statusCode(201).
@@ -39,7 +39,7 @@ public class DeleteBooking {
 
         given().header("Cookie", "token=" + token).
         when().
-            delete(Urls.BASE + Urls.BOOKING + "/109").
+            delete(Urls.BASE + Urls.BOOKING + Urls.NONEXISTENT_BOOKING_ID).
         then().
             assertThat().
                 statusCode(405).
@@ -50,7 +50,7 @@ public class DeleteBooking {
     public void updateBookingInvalidToken() throws FileNotFoundException {
         given().header("Cookie", "token=invalid").
         when().
-            delete(Urls.BASE + Urls.BOOKING + "/2").
+            delete(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID).
         then().
             assertThat().
                 statusCode(403).

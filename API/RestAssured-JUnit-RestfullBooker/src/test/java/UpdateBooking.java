@@ -26,9 +26,9 @@ public class UpdateBooking {
 
         given().header("Cookie", "token=" + token).
         when().
-            body(ParseJSON.getDataObject(ParseJSON.TEST_JSON)).
+            body(ParseJSON.getDataObject(ParseJSON.VALID_BOOKING_JSON)).
             contentType(ContentType.JSON).
-            put(Urls.BASE + Urls.BOOKING + "/2").
+            put(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID).
         then().
             assertThat().
                 statusCode(200).
@@ -43,7 +43,7 @@ public class UpdateBooking {
         when().
             body("").
             contentType(ContentType.JSON).
-            put(Urls.BASE + Urls.BOOKING + "/2").
+            put(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID).
         then().
             assertThat().
                 statusCode(400).
@@ -54,9 +54,9 @@ public class UpdateBooking {
     public void updateBookingInvalidToken() throws FileNotFoundException {
         given().header("Cookie", "token=invalid").
         when().
-            body(ParseJSON.getDataObject(ParseJSON.TEST_JSON)).
+            body(ParseJSON.getDataObject(ParseJSON.VALID_BOOKING_JSON)).
             contentType(ContentType.JSON).
-            put(Urls.BASE + Urls.BOOKING + "/2").
+            put(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID).
         then().
             assertThat().
                 statusCode(403).

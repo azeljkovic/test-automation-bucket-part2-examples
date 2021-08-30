@@ -28,7 +28,7 @@ public class PartialUpdateBooking {
         when().
             body(ParseJSON.getDataObject(ParseJSON.PARTIAL_UPDATE_BOOKING_JSON)).
             contentType(ContentType.JSON).
-            patch(Urls.BASE + Urls.BOOKING + "/2").
+            patch(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID).
         then().
             assertThat().
                 statusCode(200).
@@ -43,7 +43,7 @@ public class PartialUpdateBooking {
         when().
             body("").
             contentType(ContentType.JSON).
-            patch(Urls.BASE + Urls.BOOKING + "/2").
+            patch(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID).
         then().
             assertThat().
                 statusCode(400).
@@ -56,7 +56,7 @@ public class PartialUpdateBooking {
         when().
             body(ParseJSON.getDataObject(ParseJSON.PARTIAL_UPDATE_BOOKING_JSON)).
             contentType(ContentType.JSON).
-            patch(Urls.BASE + Urls.BOOKING + "/2").
+            patch(Urls.BASE + Urls.BOOKING + Urls.BOOKING_ID).
         then().
             assertThat().
                 statusCode(403).
