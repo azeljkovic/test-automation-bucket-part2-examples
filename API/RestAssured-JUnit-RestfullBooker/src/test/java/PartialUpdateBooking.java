@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 
 import static io.restassured.RestAssured.given;
 
-public class UpdateBooking {
+public class PartialUpdateBooking {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().
@@ -21,14 +21,14 @@ public class UpdateBooking {
     }
 
     @Test
-    public void updateBookingValid() throws FileNotFoundException {
+    public void partialUpdateBookingValid() throws FileNotFoundException {
         String token = GetToken.creteToken();
 
         given().header("Cookie", "token=" + token).
         when().
-            body(ParseJSON.getDataObject(ParseJSON.TEST_JSON)).
+            body(ParseJSON.getDataObject(ParseJSON.PARTIAL_UPDATE_BOOKING_JSON)).
             contentType(ContentType.JSON).
-            put(Urls.BASE + Urls.BOOKING + "/2").
+            patch(Urls.BASE + Urls.BOOKING + "/2").
         then().
             assertThat().
                 statusCode(200).
@@ -36,14 +36,14 @@ public class UpdateBooking {
     }
 
     @Test
-    public void updateBookingEmptyBody() throws FileNotFoundException {
+    public void partialUpdateBookingEmptyBody() throws FileNotFoundException {
         String token = GetToken.creteToken();
 
         given().header("Cookie", "token=" + token).
         when().
             body("").
             contentType(ContentType.JSON).
-            put(Urls.BASE + Urls.BOOKING + "/2").
+            patch(Urls.BASE + Urls.BOOKING + "/2").
         then().
             assertThat().
                 statusCode(400).
@@ -51,12 +51,12 @@ public class UpdateBooking {
     }
 
     @Test
-    public void updateBookingInvalidToken() throws FileNotFoundException {
+    public void partialUpdateBookingInvalidToken() throws FileNotFoundException {
         given().header("Cookie", "token=invalid").
         when().
-            body(ParseJSON.getDataObject(ParseJSON.TEST_JSON)).
+            body(ParseJSON.getDataObject(ParseJSON.PARTIAL_UPDATE_BOOKING_JSON)).
             contentType(ContentType.JSON).
-            put(Urls.BASE + Urls.BOOKING + "/2").
+            patch(Urls.BASE + Urls.BOOKING + "/2").
         then().
             assertThat().
                 statusCode(403).
