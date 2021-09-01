@@ -1,4 +1,4 @@
-# RestAssured-JUnit-RestfullBooker
+# RestAssured-JUnit-RestfulBooker
 
 Application under test: [Restful Booker](https://github.com/azeljkovic/restful-booker) (my fork which was modified to use static instead of the random data)  
 API framework: [REST Assured](https://rest-assured.io/)  
