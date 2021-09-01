@@ -3,7 +3,7 @@ A bucket full of test automation examples for various test types, tools, sample 
 
 # Table of contents
 1. [API](https://github.com/azeljkovic/test-automation-examples-bucket/tree/main/API)  
-&nbsp;&nbsp;&nbsp;[1.1 RestAssured/JUnit/RestfullBooker](https://github.com/azeljkovic/test-automation-examples-bucket/tree/main/API/RestAssured-JUnit-RestfullBooker)  
+&nbsp;&nbsp;&nbsp;[1.1 RestAssured/JUnit/RestfulBooker](https://github.com/azeljkovic/test-automation-examples-bucket/tree/main/API/RestAssured-JUnit-RestfulBooker)  
 2. [BDD]  
 3. [E2E]
 4. [Performance]  
