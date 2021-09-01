@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 
 import static io.restassured.RestAssured.given;
 
-public class CreateBooking {
+public class CreateBookingTest {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().

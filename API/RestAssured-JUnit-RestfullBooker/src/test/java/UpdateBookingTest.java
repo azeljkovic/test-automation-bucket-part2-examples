@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 
 import static io.restassured.RestAssured.given;
 
-public class UpdateBooking {
+public class UpdateBookingTest {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().

@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-public class CreateToken {
+public class CreateTokenTest {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().

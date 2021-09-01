@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-public class GetBooking {
+public class GetBookingTest {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().

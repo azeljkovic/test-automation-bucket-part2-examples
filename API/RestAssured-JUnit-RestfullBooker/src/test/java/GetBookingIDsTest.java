@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-public class GetBookingIDs {
+public class GetBookingIDsTest {
     @BeforeAll
     public static void checkApiAvailibility(){
         given().
