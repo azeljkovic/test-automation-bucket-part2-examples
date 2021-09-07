@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "ff7c9fda-8ed9-444b-addc-91cbe79a73d5",
+		"_postman_id": "04020915-9128-45b0-80c6-e28af9a24786",
 		"name": "postman-restful-booker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "GET /booking",
+			"name": "GetBookingIds",
 			"item": [
 				{
 					"name": "Get all IDs",
@@ -50,6 +50,58 @@
 					"response": []
 				},
 				{
+					"name": "GetBookingIDByFirstname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects the correct bookingid\", function() {",
+									"    var data = JSON.parse(responseBody);",
+									"    const bookingid = data[0].bookingid;",
+									"",
+									"    pm.expect(bookingid).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?firstname={{validFirstname}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "firstname",
+									"value": "{{validFirstname}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GetBooking",
+			"item": [
+				{
 					"name": "Get specific valid ID",
 					"event": [
 						{
@@ -64,24 +116,11 @@
 									"    pm.response.to.be.json;",
 									"});",
 									"",
-									"pm.test(\"Check the response body\", () => {",
-									"  const responseJson = pm.response.json();",
-									"  pm.expect(responseJson.firstname).to.eql(\"Anita\");",
-									"  pm.expect(responseJson.lastname).to.eql(\"Deavers\");",
-									"  pm.expect(responseJson.totalprice).to.eql(100);",
-									"  pm.expect(responseJson.depositpaid).to.eql(false);",
-									"  pm.expect(responseJson.bookingdates.checkin).to.eql(\"2022-11-29\");",
-									"  pm.expect(responseJson.bookingdates.checkout).to.eql(\"2022-12-10\");",
-									"  pm.expect(responseJson.additionalneeds).to.eql(\"Breakfast\");",
-									"});",
-									"",
-									"// const responseJson = pm.response.json();",
-									"const schemaNextAction = JSON.stringify(pm.variables.get(\"XXX\"));",
-									"const responseJson = JSON.stringify(pm.response.json());",
-									"console.log(responseJson);",
-									"console.log(schemaNextAction);",
 									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
-									"    pm.expect(responseJson).to.eql(schemaNextAction);",
+									"    const expectedJson = pm.variables.get(\"Booking4Body\");",
+									"    const responseJson = JSON.stringify(pm.response.json());",
+									"",
+									"    pm.expect(responseJson).to.eql(expectedJson);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -106,6 +145,26 @@
 				},
 				{
 					"name": "Get specific invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    const responseJson = pm.response.text();",
+									"",
+									"    pm.expect(responseJson).to.eql(\"Not Found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -151,8 +210,12 @@
 			"value": "http://localhost:3001"
 		},
 		{
-			"key": "XXX",
-			"value": "{\n    \"firstname\": \"Anita\",\n    \"lastname\": \"Deavers\",\n    \"totalprice\": 100,\n    \"depositpaid\": false,\n    \"bookingdates\": {\n        \"checkin\": \"2022-11-29\",\n        \"checkout\": \"2022-12-10\"\n    },\n    \"additionalneeds\": \"Breakfast\"\n}"
+			"key": "Booking4Body",
+			"value": "{\"firstname\":\"Anita\",\"lastname\":\"Deavers\",\"totalprice\":100,\"depositpaid\":false,\"bookingdates\":{\"checkin\":\"2022-11-29\",\"checkout\":\"2022-12-10\"},\"additionalneeds\":\"Breakfast\"}"
+		},
+		{
+			"key": "validFirstname",
+			"value": "Mandy"
 		}
 	]
 }
