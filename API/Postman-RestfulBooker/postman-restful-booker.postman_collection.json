@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "04020915-9128-45b0-80c6-e28af9a24786",
+		"_postman_id": "e610cc87-bf58-40eb-9684-98d121dd01c8",
 		"name": "postman-restful-booker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -50,7 +50,61 @@
 					"response": []
 				},
 				{
-					"name": "GetBookingIDByFirstname",
+					"name": "GetBookingIDByExistentFirstname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// data definition",
+									"var data = pm.response.json();",
+									"",
+									"//tests",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Exactly one booking is returned\", function () {",
+									"    pm.expect(data.length).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"Expects the correct bookingid\", function() {",
+									"    var bookingid = data[0].bookingid;",
+									"",
+									"    pm.expect(bookingid).to.eql(3);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?firstname={{existentFirstname}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "firstname",
+									"value": "{{existentFirstname}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingIDByNonExistentFirstname",
 					"event": [
 						{
 							"listen": "test",
@@ -64,11 +118,10 @@
 									"    pm.response.to.be.json;",
 									"});",
 									"",
-									"pm.test(\"Expects the correct bookingid\", function() {",
-									"    var data = JSON.parse(responseBody);",
-									"    const bookingid = data[0].bookingid;",
-									"",
-									"    pm.expect(bookingid).to.eql(3);",
+									"pm.test(\"Expects the return body is empty array\", function() {",
+									"    var data = pm.response.json();",
+									"    ",
+									"    pm.expect(data.length).to.eql(0);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -79,7 +132,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/booking?firstname={{validFirstname}}",
+							"raw": "{{URL}}/booking?firstname={{nonExistentFirstname}}",
 							"host": [
 								"{{URL}}"
 							],
@@ -89,7 +142,353 @@
 							"query": [
 								{
 									"key": "firstname",
-									"value": "{{validFirstname}}"
+									"value": "{{nonExistentFirstname}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingIDByExistentLastname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// data definition",
+									"var data = pm.response.json();",
+									"",
+									"//tests",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Exactly one booking is returned\", function () {",
+									"    pm.expect(data.length).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"Expects the correct bookingid\", function() {",
+									"    const bookingid = data[0].bookingid;",
+									"",
+									"    pm.expect(bookingid).to.eql(4);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?lastname={{existentLastname}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "lastname",
+									"value": "{{existentLastname}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingIDByNonExistentLastname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects the return body is empty array\", function() {",
+									"    var data = pm.response.json();",
+									"    ",
+									"    pm.expect(data.length).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?lastname={{nonExistentLastname}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "lastname",
+									"value": "{{nonExistentLastname}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingIDByExistentCheckinDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// data definition",
+									"var data = pm.response.json();",
+									"",
+									"//tests",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Exactly one booking is returned\", function () {",
+									"    pm.expect(data.length).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"Expects the correct bookingid\", function() {",
+									"    const bookingid = data[0].bookingid;",
+									"",
+									"    pm.expect(bookingid).to.eql(5);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?checkin={{existentCheckinDate}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "checkin",
+									"value": "{{existentCheckinDate}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingIDByNonExistentCheckinDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects the return body is empty array\", function() {",
+									"    var data = pm.response.json();",
+									"    ",
+									"    pm.expect(data.length).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?checkin={{nonExistentCheckinDate}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "checkin",
+									"value": "{{nonExistentCheckinDate}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingIDByExistentCheckoutDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// data definition",
+									"var data = pm.response.json();",
+									"",
+									"//tests",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Exactly one booking is returned\", function () {",
+									"    pm.expect(data.length).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"Expects the correct bookingid\", function() {",
+									"    const bookingid = data[0].bookingid;",
+									"",
+									"    pm.expect(bookingid).to.eql(6);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?checkout={{existentCheckoutDate}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "checkout",
+									"value": "{{existentCheckoutDate}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingIDByNonExistentCheckoutDate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects the return body is empty array\", function() {",
+									"    var data = pm.response.json();",
+									"    ",
+									"    pm.expect(data.length).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?checkout={{nonExistentCheckoutDate}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "checkout",
+									"value": "{{nonExistentCheckoutDate}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetBookingIDByEmptyHeader",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects the return body is empty array\", function() {",
+									"    var data = pm.response.json();",
+									"    ",
+									"    pm.expect(data.length).to.eql(0);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking?checkin=",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							],
+							"query": [
+								{
+									"key": "checkin",
+									"value": ""
 								}
 							]
 						}
@@ -214,8 +613,36 @@
 			"value": "{\"firstname\":\"Anita\",\"lastname\":\"Deavers\",\"totalprice\":100,\"depositpaid\":false,\"bookingdates\":{\"checkin\":\"2022-11-29\",\"checkout\":\"2022-12-10\"},\"additionalneeds\":\"Breakfast\"}"
 		},
 		{
-			"key": "validFirstname",
+			"key": "existentFirstname",
 			"value": "Mandy"
+		},
+		{
+			"key": "nonExistentFirstname",
+			"value": "Henry"
+		},
+		{
+			"key": "existentLastname",
+			"value": "Deavers"
+		},
+		{
+			"key": "nonExistentLastname",
+			"value": "James"
+		},
+		{
+			"key": "existentCheckinDate",
+			"value": "2020-03-01"
+		},
+		{
+			"key": "nonExistentCheckinDate",
+			"value": "2013-03-01"
+		},
+		{
+			"key": "existentCheckoutDate",
+			"value": "2020-01-07"
+		},
+		{
+			"key": "nonExistentCheckoutDate",
+			"value": "2015-07-20"
 		}
 	]
 }
