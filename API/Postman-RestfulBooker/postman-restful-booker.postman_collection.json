@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e610cc87-bf58-40eb-9684-98d121dd01c8",
+		"_postman_id": "5a2e2985-70bf-4744-b402-8f471bc2c7a7",
 		"name": "postman-restful-booker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -755,7 +755,7 @@
 			"name": "GetBooking",
 			"item": [
 				{
-					"name": "Get specific valid ID",
+					"name": "GetSpecificValidID",
 					"event": [
 						{
 							"listen": "test",
@@ -796,7 +796,7 @@
 					"response": []
 				},
 				{
-					"name": "Get specific valid ID XML",
+					"name": "GetSpecificValidIDXML",
 					"event": [
 						{
 							"listen": "test",
@@ -811,9 +811,9 @@
 									"});",
 									"",
 									"pm.test(\"Expects response to match expected XML\", function() {",
-									"    const expectedJson = pm.variables.get(\"Booking4BodyXML\");",
+									"    const expectedXML = pm.variables.get(\"Booking4BodyXML\");",
 									"",
-									"    pm.expect(responseBody).to.eql(expectedJson);",
+									"    pm.expect(responseBody).to.eql(expectedXML);",
 									"});"
 								],
 								"type": "text/javascript"
@@ -848,7 +848,7 @@
 					"response": []
 				},
 				{
-					"name": "Get specific invalid ID",
+					"name": "GetSpecificInvalidID",
 					"event": [
 						{
 							"listen": "test",
@@ -880,6 +880,128 @@
 							"path": [
 								"booking",
 								"99"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateBooking",
+			"item": [
+				{
+					"name": "CreateValidBooking",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"    var expectedJson = pm.variables.get(\"CreateBookingJSON\");",
+									"    var data = JSON.parse(responseBody);",
+									"    var type = typeof data.bookingid;",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    pm.expect(JSON.stringify(data.booking)).to.eql(expectedJson);",
+									"});",
+									"",
+									"pm.test(\"Expects response field bookingid is a number\", function() {",
+									"    pm.expect(type).to.eql('number');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CreateBookingJSON}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateValidBookingXML",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"The body of the response is a valid XML\", function () {",
+									"     pm.expect(xml2Json(responseBody)).to.exist;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    var expectedJson = pm.variables.get(\"CreateBookingXMLToJSON\");",
+									"    var jsonData = xml2Json(responseBody);",
+									"",
+									"    pm.expect(JSON.stringify(jsonData[\"created-booking\"].booking)).to.eql(expectedJson);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"accept": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CreateBookingJSON}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
 							]
 						}
 					},
@@ -947,11 +1069,19 @@
 		},
 		{
 			"key": "Booking4BodyJSON",
-			"value": "{\"firstname\":\"Anita\",\"lastname\":\"Deavers\",\"totalprice\":100,\"depositpaid\":false,\"bookingdates\":{\"checkin\":\"2022-11-29\",\"checkout\":\"2022-12-10\"},\"additionalneeds\":\"Breakfast\"}"
+			"value": "{\"firstname\":\"Anita\",\"lastname\":\"Deavers\",\"totalprice\":100,\"depositpaid\":false,\"bookingdates\":{\"checkin\":\"2022-11-29\",\"checkout\":\"2022-12-10\"}}"
 		},
 		{
 			"key": "Booking4BodyXML",
-			"value": "<?xml version='1.0'?>\n<booking>\n    <firstname>Anita</firstname>\n    <lastname>Deavers</lastname>\n    <totalprice>100</totalprice>\n    <depositpaid>false</depositpaid>\n    <bookingdates>\n        <checkin>2022-11-29</checkin>\n        <checkout>2022-12-10</checkout>\n    </bookingdates>\n    <additionalneeds>Breakfast</additionalneeds>\n</booking>"
+			"value": "<?xml version='1.0'?>\n<booking>\n    <firstname>Anita</firstname>\n    <lastname>Deavers</lastname>\n    <totalprice>100</totalprice>\n    <depositpaid>false</depositpaid>\n    <bookingdates>\n        <checkin>2022-11-29</checkin>\n        <checkout>2022-12-10</checkout>\n    </bookingdates>\n</booking>"
+		},
+		{
+			"key": "CreateBookingJSON",
+			"value": "{\"firstname\":\"Jack\",\"lastname\":\"Ross\",\"totalprice\":170,\"depositpaid\":true,\"bookingdates\":{\"checkin\":\"2021-11-01\",\"checkout\":\"2021-11-10\"},\"additionalneeds\":\"Smoking Room\"}"
+		},
+		{
+			"key": "CreateBookingXMLToJSON",
+			"value": "{\"firstname\":\"Jack\",\"lastname\":\"Ross\",\"totalprice\":\"170\",\"depositpaid\":\"true\",\"bookingdates\":{\"checkin\":\"2021-11-01\",\"checkout\":\"2021-11-10\"},\"additionalneeds\":\"Smoking Room\"}"
 		}
 	]
 }
