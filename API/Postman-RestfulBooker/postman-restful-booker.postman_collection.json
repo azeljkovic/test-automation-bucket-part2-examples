@@ -946,7 +946,73 @@
 					"response": []
 				},
 				{
-					"name": "CreateValidBookingXML",
+					"name": "CreateValidBookingXMLRequest",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"    var expectedJson = pm.variables.get(\"Booking4BodyJSON\");",
+									"    var data = JSON.parse(responseBody);",
+									"    var type = typeof data.bookingid;",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    pm.expect(JSON.stringify(data.booking)).to.eql(expectedJson);",
+									"});",
+									"",
+									"pm.test(\"Expects response field bookingid is a number\", function() {",
+									"    pm.expect(type).to.eql('number');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "text/xml",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CreateBookingXML}}",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateValidBookingXMLResponse",
 					"event": [
 						{
 							"listen": "test",
@@ -1002,6 +1068,166 @@
 							],
 							"path": [
 								"booking"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CreateToken",
+			"item": [
+				{
+					"name": "CreateTokenValid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response has a 'token' property\", function() {",
+									"    var data = JSON.parse(responseBody);",
+									"    pm.expect(data).to.have.property(\"token\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"{{UsernameValid}}\",\n    \"password\" : \"{{PasswordValid}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTokenInvalidUsername",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response has a 'reason' property\", function() {",
+									"    pm.expect(data).to.have.property(\"reason\");",
+									"});",
+									"",
+									"pm.test(\"Expects reason is a 'Bad credentials'\", function() {",
+									"    pm.expect(data.reason).to.eql(\"Bad credentials\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"{{UsernameInvalid}}\",\n    \"password\" : \"{{PasswordValid}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateTokenInvalidPassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response has a 'reason' property\", function() {",
+									"    pm.expect(data).to.have.property(\"reason\");",
+									"});",
+									"",
+									"pm.test(\"Expects reason is a 'Bad credentials'\", function() {",
+									"    pm.expect(data.reason).to.eql(\"Bad credentials\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"{{UsernameValid}}\",\n    \"password\" : \"{{PasswordInvalid}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth"
 							]
 						}
 					},
@@ -1082,6 +1308,26 @@
 		{
 			"key": "CreateBookingXMLToJSON",
 			"value": "{\"firstname\":\"Jack\",\"lastname\":\"Ross\",\"totalprice\":\"170\",\"depositpaid\":\"true\",\"bookingdates\":{\"checkin\":\"2021-11-01\",\"checkout\":\"2021-11-10\"},\"additionalneeds\":\"Smoking Room\"}"
+		},
+		{
+			"key": "CreateBookingXML",
+			"value": "<booking>\n    <firstname>Anita</firstname>\n    <lastname>Deavers</lastname>\n    <totalprice>100</totalprice>\n    <depositpaid>false</depositpaid>\n    <bookingdates>\n        <checkin>2022-11-29</checkin>\n        <checkout>2022-12-10</checkout>\n    </bookingdates>\n</booking>"
+		},
+		{
+			"key": "UsernameValid",
+			"value": "admin"
+		},
+		{
+			"key": "PasswordValid",
+			"value": "password123"
+		},
+		{
+			"key": "UsernameInvalid",
+			"value": "user"
+		},
+		{
+			"key": "PasswordInvalid",
+			"value": "wrongpass"
 		}
 	]
 }
