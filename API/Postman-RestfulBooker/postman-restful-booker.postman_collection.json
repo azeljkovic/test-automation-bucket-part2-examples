@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5a2e2985-70bf-4744-b402-8f471bc2c7a7",
+		"_postman_id": "55efae9d-3f2d-496d-b9d8-5a9d129859c9",
 		"name": "postman-restful-booker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1228,6 +1228,67 @@
 							],
 							"path": [
 								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UpdateBooking",
+			"item": [
+				{
+					"name": "UpdateBookingValid",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var url = pm.variables.get(\"URL\") + \"/auth\";",
+									"var username = pm.variables.get(\"UsernameValid\");",
+									"var password = pm.variables.get(\"PasswordValid\");",
+									"console.log(password);",
+									"",
+									"const options = {",
+									"    url: url,",
+									"    method: 'POST',",
+									"    header: { 'content-type': 'application/json' },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ \"username\": username,",
+									"                              \"password\": password})",
+									"",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(options, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    // var data = JSON.parse(res.responseBody);",
+									"    if (err) {",
+									"        console.log(err);",
+									"    }",
+									"    else {",
+									"        console.log(jsonData.token);",
+									"        authToken = jsonData.token;",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/booking/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking",
+								"4"
 							]
 						}
 					},
