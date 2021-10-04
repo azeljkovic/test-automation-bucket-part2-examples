@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "55efae9d-3f2d-496d-b9d8-5a9d129859c9",
+		"_postman_id": "43d47c7f-a2d6-4b7f-a193-2e863d6b3843",
 		"name": "postman-restful-booker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1264,23 +1264,61 @@
 									"",
 									"pm.sendRequest(options, function (err, res) {",
 									"    var jsonData = res.json();",
-									"    // var data = JSON.parse(res.responseBody);",
 									"    if (err) {",
 									"        console.log(err);",
 									"    }",
 									"    else {",
 									"        console.log(jsonData.token);",
-									"        authToken = jsonData.token;",
+									"        pm.environment.set(\"authToken\", jsonData.token);",
 									"    }",
 									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"    var expectedJson = pm.variables.get(\"CreateBookingJSON\");",
+									"    var data = JSON.parse(responseBody);",
+									"    var type = typeof data.bookingid;",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    pm.expect(JSON.stringify(data)).to.eql(expectedJson);",
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"method": "POST",
-						"header": [],
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CreateBookingJSON}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{URL}}/booking/4",
 							"host": [
@@ -1289,6 +1327,196 @@
 							"path": [
 								"booking",
 								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBookingValidXML",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var url = pm.variables.get(\"URL\") + \"/auth\";",
+									"var username = pm.variables.get(\"UsernameValid\");",
+									"var password = pm.variables.get(\"PasswordValid\");",
+									"console.log(password);",
+									"",
+									"const options = {",
+									"    url: url,",
+									"    method: 'POST',",
+									"    header: { 'content-type': 'application/json' },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ \"username\": username,",
+									"                              \"password\": password})",
+									"",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(options, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    if (err) {",
+									"        console.log(err);",
+									"    }",
+									"    else {",
+									"        console.log(jsonData.token);",
+									"        pm.environment.set(\"authToken\", jsonData.token);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"    var expectedJson = pm.variables.get(\"Booking4BodyJSON\");",
+									"    var data = JSON.parse(responseBody);",
+									"    var type = typeof data.bookingid;",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    pm.expect(JSON.stringify(data)).to.eql(expectedJson);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{authToken}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/xml",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/xml",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CreateBookingXML}}",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateBookingNonexistent",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var url = pm.variables.get(\"URL\") + \"/auth\";",
+									"var username = pm.variables.get(\"UsernameValid\");",
+									"var password = pm.variables.get(\"PasswordValid\");",
+									"console.log(password);",
+									"",
+									"const options = {",
+									"    url: url,",
+									"    method: 'POST',",
+									"    header: { 'content-type': 'application/json' },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ \"username\": username,",
+									"                              \"password\": password})",
+									"",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(options, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    if (err) {",
+									"        console.log(err);",
+									"    }",
+									"    else {",
+									"        console.log(jsonData.token);",
+									"        pm.environment.set(\"authToken\", jsonData.token);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{CreateBookingJSON}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking/44",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking",
+								"44"
 							]
 						}
 					},
