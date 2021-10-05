@@ -1523,6 +1523,197 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "PartialUpdateBooking",
+			"item": [
+				{
+					"name": "PartialUpdateBookingFirstnameLastname",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var url = pm.variables.get(\"URL\") + \"/auth\";",
+									"var username = pm.variables.get(\"UsernameValid\");",
+									"var password = pm.variables.get(\"PasswordValid\");",
+									"console.log(password);",
+									"",
+									"const options = {",
+									"    url: url,",
+									"    method: 'POST',",
+									"    header: { 'content-type': 'application/json' },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ \"username\": username,",
+									"                              \"password\": password})",
+									"",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(options, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    if (err) {",
+									"        console.log(err);",
+									"    }",
+									"    else {",
+									"        console.log(jsonData.token);",
+									"        pm.environment.set(\"authToken\", jsonData.token);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var expectedJson = pm.variables.get(\"UpdatedFirstnameLastnameResponse\");",
+									"var data = JSON.parse(responseBody);",
+									"var type = typeof data.bookingid;",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    pm.expect(JSON.stringify(data)).to.eql(expectedJson);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{UpdatedFirstnameLastname}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking/5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PartialUpdateBookingTotalpriceDepositpaid",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var url = pm.variables.get(\"URL\") + \"/auth\";",
+									"var username = pm.variables.get(\"UsernameValid\");",
+									"var password = pm.variables.get(\"PasswordValid\");",
+									"console.log(password);",
+									"",
+									"const options = {",
+									"    url: url,",
+									"    method: 'POST',",
+									"    header: { 'content-type': 'application/json' },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ \"username\": username,",
+									"                              \"password\": password})",
+									"",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(options, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    if (err) {",
+									"        console.log(err);",
+									"    }",
+									"    else {",
+									"        console.log(jsonData.token);",
+									"        pm.environment.set(\"authToken\", jsonData.token);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var expectedJson = pm.variables.get(\"UpdatedTotalpriceDepositpaidResponse\");",
+									"var data = JSON.parse(responseBody);",
+									"var type = typeof data.bookingid;",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    pm.expect(JSON.stringify(data)).to.eql(expectedJson);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{UpdatedTotalpriceDepositpaid}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking/6",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -1617,6 +1808,22 @@
 		{
 			"key": "PasswordInvalid",
 			"value": "wrongpass"
+		},
+		{
+			"key": "UpdatedFirstnameLastname",
+			"value": "{\"firstname\":\"Lilly\",\"lastname\":\"Jean\"}"
+		},
+		{
+			"key": "UpdatedFirstnameLastnameResponse",
+			"value": "{\"firstname\":\"Lilly\",\"lastname\":\"Jean\",\"totalprice\":500,\"depositpaid\":true,\"bookingdates\":{\"checkin\":\"2020-03-01\",\"checkout\":\"2020-03-05\"}}"
+		},
+		{
+			"key": "UpdatedTotalpriceDepositpaid",
+			"value": "{\"totalprice\":3000,\"depositpaid\":true}"
+		},
+		{
+			"key": "UpdatedTotalpriceDepositpaidResponse",
+			"value": "{\"firstname\":\"Steven\",\"lastname\":\"Ellis\",\"totalprice\":3000,\"depositpaid\":true,\"bookingdates\":{\"checkin\":\"2019-12-29\",\"checkout\":\"2020-01-07\"},\"additionalneeds\":\"Wheelchair\"}"
 		}
 	]
 }
