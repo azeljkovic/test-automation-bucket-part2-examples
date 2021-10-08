@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "43d47c7f-a2d6-4b7f-a193-2e863d6b3843",
+		"_postman_id": "61d6a85a-5936-4c42-94fd-730cd2ddfd1e",
 		"name": "postman-restful-booker",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1320,13 +1320,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/booking/4",
+							"raw": "{{URL}}/booking/3",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"booking",
-								"4"
+								"3"
 							]
 						}
 					},
@@ -1712,6 +1712,273 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "PartialUpdateBookingCheckinCheckout",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var url = pm.variables.get(\"URL\") + \"/auth\";",
+									"var username = pm.variables.get(\"UsernameValid\");",
+									"var password = pm.variables.get(\"PasswordValid\");",
+									"console.log(password);",
+									"",
+									"const options = {",
+									"    url: url,",
+									"    method: 'POST',",
+									"    header: { 'content-type': 'application/json' },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ \"username\": username,",
+									"                              \"password\": password})",
+									"",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(options, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    if (err) {",
+									"        console.log(err);",
+									"    }",
+									"    else {",
+									"        console.log(jsonData.token);",
+									"        pm.environment.set(\"authToken\", jsonData.token);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var expectedJson = pm.variables.get(\"UpdatedCheckinCheckoutResponse\");",
+									"var data = JSON.parse(responseBody);",
+									"var type = typeof data.bookingid;",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    pm.expect(JSON.stringify(data)).to.eql(expectedJson);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{UpdatedCheckinCheckout}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking/7",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PartialUpdateBookingAdditionalNeeds",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var url = pm.variables.get(\"URL\") + \"/auth\";",
+									"var username = pm.variables.get(\"UsernameValid\");",
+									"var password = pm.variables.get(\"PasswordValid\");",
+									"console.log(password);",
+									"",
+									"const options = {",
+									"    url: url,",
+									"    method: 'POST',",
+									"    header: { 'content-type': 'application/json' },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ \"username\": username,",
+									"                              \"password\": password})",
+									"",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(options, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    if (err) {",
+									"        console.log(err);",
+									"    }",
+									"    else {",
+									"        console.log(jsonData.token);",
+									"        pm.environment.set(\"authToken\", jsonData.token);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var expectedJson = pm.variables.get(\"UpdatedAdditionalNeedsResponse\");",
+									"var data = JSON.parse(responseBody);",
+									"var type = typeof data.bookingid;",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response is JSON\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Expects response to match expected JSON Schema\", function() {",
+									"    pm.expect(JSON.stringify(data)).to.eql(expectedJson);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{UpdatedAdditionalNeeds}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking/8",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PartialUpdateBookingNonexistent",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var url = pm.variables.get(\"URL\") + \"/auth\";",
+									"var username = pm.variables.get(\"UsernameValid\");",
+									"var password = pm.variables.get(\"PasswordValid\");",
+									"console.log(password);",
+									"",
+									"const options = {",
+									"    url: url,",
+									"    method: 'POST',",
+									"    header: { 'content-type': 'application/json' },",
+									"    body: {",
+									"        mode: 'raw',",
+									"        raw: JSON.stringify({ \"username\": username,",
+									"                              \"password\": password})",
+									"",
+									"    }",
+									"};",
+									"",
+									"pm.sendRequest(options, function (err, res) {",
+									"    var jsonData = res.json();",
+									"    if (err) {",
+									"        console.log(err);",
+									"    }",
+									"    else {",
+									"        console.log(jsonData.token);",
+									"        pm.environment.set(\"authToken\", jsonData.token);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "token={{authToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{UpdatedAdditionalNeeds}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/booking/44",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"booking",
+								"44"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
@@ -1824,6 +2091,22 @@
 		{
 			"key": "UpdatedTotalpriceDepositpaidResponse",
 			"value": "{\"firstname\":\"Steven\",\"lastname\":\"Ellis\",\"totalprice\":3000,\"depositpaid\":true,\"bookingdates\":{\"checkin\":\"2019-12-29\",\"checkout\":\"2020-01-07\"},\"additionalneeds\":\"Wheelchair\"}"
+		},
+		{
+			"key": "UpdatedCheckinCheckout",
+			"value": "{\"checkin\":\"2021-12-31\",\"checkout\":\"2022-01-01\"}"
+		},
+		{
+			"key": "UpdatedCheckinCheckoutResponse",
+			"value": "{\"firstname\":\"Maria\",\"lastname\":\"Chavez\",\"totalprice\":500,\"depositpaid\":true,\"bookingdates\":{\"checkin\":\"2021-12-31\",\"checkout\":\"2022-01-01\"}}"
+		},
+		{
+			"key": "UpdatedAdditionalNeeds",
+			"value": "{\"additionalneeds\":\"Air Condition\"}"
+		},
+		{
+			"key": "UpdatedAdditionalNeedsResponse",
+			"value": "{\"firstname\":\"John\",\"lastname\":\"Bradley\",\"totalprice\":130,\"depositpaid\":false,\"bookingdates\":{\"checkin\":\"2022-06-22\",\"checkout\":\"2022-08-22\"},\"additionalneeds\":\"Air Condition\"}"
 		}
 	]
 }
