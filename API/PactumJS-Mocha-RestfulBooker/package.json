@@ -4,12 +4,13 @@
   "description": "Sample PactumJS API testing project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --reporter mochawesome"
   },
   "author": "Aleksandar Zeljkovic",
   "license": "ISC",
   "devDependencies": {
     "mocha": "^9.1.3",
+    "mochawesome": "^7.0.1",
     "pactum": "^3.0.21"
   }
 }

@@ -1,0 +1,208 @@
+{
+  "stats": {
+    "suites": 0,
+    "tests": 7,
+    "passes": 4,
+    "pending": 0,
+    "failures": 3,
+    "start": "2021-11-10T19:33:27.568Z",
+    "end": "2021-11-10T19:33:27.666Z",
+    "duration": 98,
+    "testsRegistered": 7,
+    "passPercent": 57.14285714285714,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "98877628-1594-4772-9f0e-df087b653bea",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [
+        {
+          "title": "Get all IDs",
+          "fullTitle": "Get all IDs",
+          "timedOut": false,
+          "duration": 27,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "await pactum.spec()\n    .get(endpoints.booking)\n    .expectStatus(200)\n    .expectHeaderContains('content-type', 'application/json')\n    .expectJsonLength(responseData.allBookingsLength);",
+          "err": {},
+          "uuid": "e4f42d10-2d62-492d-ad65-73c815b6ff7c",
+          "parentUUID": "98877628-1594-4772-9f0e-df087b653bea",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Get booking ID by existent firstname",
+          "fullTitle": "Get booking ID by existent firstname",
+          "timedOut": false,
+          "duration": 10,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "await pactum.spec()\n    .get(endpoints.booking)\n    .withQueryParams('firstname', requestData.existentFirstname)\n    .expectStatus(200)\n    .expectHeaderContains('content-type', 'application/json')\n    .expectJsonLength(1)\n    .expectJson([{\n        \"bookingid\": responseData.validBookingIDFirstnameLastname\n    }]);",
+          "err": {},
+          "uuid": "ee43d57b-f4c0-4c02-8162-9a6b5cdb26f4",
+          "parentUUID": "98877628-1594-4772-9f0e-df087b653bea",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Get booking ID by existent lastname",
+          "fullTitle": "Get booking ID by existent lastname",
+          "timedOut": false,
+          "duration": 6,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "await pactum.spec()\n    .get(endpoints.booking)\n    .withQueryParams('lastname', requestData.existentLastname)\n    .expectStatus(200)\n    .expectHeaderContains('content-type', 'application/json')\n    .expectJsonLength(1)\n    .expectJson([{\n        \"bookingid\": responseData.validBookingIDFirstnameLastname\n    }]);",
+          "err": {},
+          "uuid": "4530e68d-9615-4b64-b035-cc1174ce8d79",
+          "parentUUID": "98877628-1594-4772-9f0e-df087b653bea",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Get booking ID by existent firstname and lastname",
+          "fullTitle": "Get booking ID by existent firstname and lastname",
+          "timedOut": false,
+          "duration": 14,
+          "state": "passed",
+          "speed": "fast",
+          "pass": true,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "await pactum.spec()\n    .get(endpoints.booking)\n    .withQueryParams('firstname', requestData.existentFirstname)\n    .withQueryParams('lastname', requestData.existentLastname)\n    .expectStatus(200)\n    .expectHeaderContains('content-type', 'application/json')\n    .expectJsonLength(1)\n    .expectJson([{\n        \"bookingid\": responseData.validBookingIDFirstnameLastname\n    }]);",
+          "err": {},
+          "uuid": "d9f0bc9b-0b67-49af-acee-1dd3e948cc32",
+          "parentUUID": "98877628-1594-4772-9f0e-df087b653bea",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Get booking ID by existent checkin date",
+          "fullTitle": "Get booking ID by existent checkin date",
+          "timedOut": false,
+          "duration": 13,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "await pactum.spec()\n    .get(endpoints.booking)\n    .withQueryParams('checkin', requestData.existentCheckinDate)\n    .expectStatus(200)\n    .expectHeaderContains('content-type', 'application/json')\n    .expectJsonLength(1)\n    .expectJson([{\n        \"bookingid\": responseData.validBookingIDCheckinCheckoutDate\n    }]);",
+          "err": {
+            "message": "AssertionError: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    {\n+     bookingid: 2\n+   },\n+   {\n+     bookingid: 8\n+   },\n+   {\n+     bookingid: 10\n+   },\n+   {\n+     bookingid: 4\n+   },\n+   {\n+     bookingid: 1\n+   },\n+   {\n+     bookingid: 7\n-     bookingid: 5\n    }\n  ]",
+            "estack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    {\n+     bookingid: 2\n+   },\n+   {\n+     bookingid: 8\n+   },\n+   {\n+     bookingid: 10\n+   },\n+   {\n+     bookingid: 4\n+   },\n+   {\n+     bookingid: 1\n+   },\n+   {\n+     bookingid: 7\n-     bookingid: 5\n    }\n  ]\n    at Expect._validateJson (node_modules/pactum/src/models/expect.js:214:14)\n    at Expect.validate (node_modules/pactum/src/models/expect.js:52:10)\n    at Tosser.validateResponse (node_modules/pactum/src/models/Tosser.js:225:23)\n    at Tosser.validate (node_modules/pactum/src/models/Tosser.js:192:18)\n    at Tosser.toss (node_modules/pactum/src/models/Tosser.js:42:18)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+            "diff": " [\n   {\n-     \"bookingid\": 2\n+     \"bookingid\": 5\n   }\n-   {\n-     \"bookingid\": 8\n-   }\n-   {\n-     \"bookingid\": 10\n-   }\n-   {\n-     \"bookingid\": 4\n-   }\n-   {\n-     \"bookingid\": 1\n-   }\n-   {\n-     \"bookingid\": 7\n-   }\n ]\n"
+          },
+          "uuid": "df78c7de-49ad-4704-bb95-ca7fa100f236",
+          "parentUUID": "98877628-1594-4772-9f0e-df087b653bea",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Get booking ID by existent checkout date",
+          "fullTitle": "Get booking ID by existent checkout date",
+          "timedOut": false,
+          "duration": 9,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "await pactum.spec()\n    .get(endpoints.booking)\n    .withQueryParams('checkout', requestData.existentCheckoutDate)\n    .expectStatus(200)\n    .expectHeaderContains('content-type', 'application/json')\n    .expectJsonLength(1)\n    .expectJson([{\n        \"bookingid\": responseData.validBookingIDCheckinCheckoutDate\n    }]);",
+          "err": {
+            "message": "AssertionError: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    {\n+     bookingid: 3\n+   },\n+   {\n+     bookingid: 5\n+   },\n+   {\n+     bookingid: 6\n+   },\n+   {\n+     bookingid: 9\n-     bookingid: 5\n    }\n  ]",
+            "estack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n  [\n    {\n+     bookingid: 3\n+   },\n+   {\n+     bookingid: 5\n+   },\n+   {\n+     bookingid: 6\n+   },\n+   {\n+     bookingid: 9\n-     bookingid: 5\n    }\n  ]\n    at Expect._validateJson (node_modules/pactum/src/models/expect.js:214:14)\n    at Expect.validate (node_modules/pactum/src/models/expect.js:52:10)\n    at Tosser.validateResponse (node_modules/pactum/src/models/Tosser.js:225:23)\n    at Tosser.validate (node_modules/pactum/src/models/Tosser.js:192:18)\n    at Tosser.toss (node_modules/pactum/src/models/Tosser.js:42:18)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+            "diff": " [\n   {\n-     \"bookingid\": 3\n-   }\n-   {\n     \"bookingid\": 5\n   }\n-   {\n-     \"bookingid\": 6\n-   }\n-   {\n-     \"bookingid\": 9\n-   }\n ]\n"
+          },
+          "uuid": "cb88f55e-7073-4c54-9af1-a580dbc19c41",
+          "parentUUID": "98877628-1594-4772-9f0e-df087b653bea",
+          "isHook": false,
+          "skipped": false
+        },
+        {
+          "title": "Get booking ID by existent checkin and checkout date",
+          "fullTitle": "Get booking ID by existent checkin and checkout date",
+          "timedOut": false,
+          "duration": 10,
+          "state": "failed",
+          "speed": null,
+          "pass": false,
+          "fail": true,
+          "pending": false,
+          "context": null,
+          "code": "await pactum.spec()\n    .get(endpoints.booking)\n    .withQueryParams('checkin', requestData.existentCheckinDate)\n    .withQueryParams('checkout', requestData.existentCheckoutDate)\n    .expectStatus(200)\n    .expectHeaderContains('content-type', 'application/json')\n    .expectJsonLength(1)\n    .expectJson([{\n        \"bookingid\": responseData.validBookingIDCheckinCheckoutDate\n    }]);",
+          "err": {
+            "message": "AssertionError: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   {\n-     bookingid: 5\n-   }\n- ]",
+            "estack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ []\n- [\n-   {\n-     bookingid: 5\n-   }\n- ]\n    at Expect._validateJson (node_modules/pactum/src/models/expect.js:214:14)\n    at Expect.validate (node_modules/pactum/src/models/expect.js:52:10)\n    at Tosser.validateResponse (node_modules/pactum/src/models/Tosser.js:225:23)\n    at Tosser.validate (node_modules/pactum/src/models/Tosser.js:192:18)\n    at Tosser.toss (node_modules/pactum/src/models/Tosser.js:42:18)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)",
+            "diff": "- []\n+ [\n+   {\n+     \"bookingid\": 5\n+   }\n+ ]\n"
+          },
+          "uuid": "4a5746f3-65ed-4956-b50f-f0d305a5d22b",
+          "parentUUID": "98877628-1594-4772-9f0e-df087b653bea",
+          "isHook": false,
+          "skipped": false
+        }
+      ],
+      "suites": [],
+      "passes": [
+        "e4f42d10-2d62-492d-ad65-73c815b6ff7c",
+        "ee43d57b-f4c0-4c02-8162-9a6b5cdb26f4",
+        "4530e68d-9615-4b64-b035-cc1174ce8d79",
+        "d9f0bc9b-0b67-49af-acee-1dd3e948cc32"
+      ],
+      "failures": [
+        "df78c7de-49ad-4704-bb95-ca7fa100f236",
+        "cb88f55e-7073-4c54-9af1-a580dbc19c41",
+        "4a5746f3-65ed-4956-b50f-f0d305a5d22b"
+      ],
+      "pending": [],
+      "skipped": [],
+      "duration": 89,
+      "root": true,
+      "rootEmpty": false,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "9.1.3"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.0.1"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.0.1"
+    }
+  }
+}

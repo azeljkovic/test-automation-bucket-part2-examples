@@ -1,4 +1,5 @@
 {
   "allBookingsLength": 10,
-  "validBookingID": 4
+  "validBookingIDFirstnameLastname": 4,
+  "validBookingIDCheckinCheckoutDate": 5
 }
