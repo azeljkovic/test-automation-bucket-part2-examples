@@ -4,7 +4,8 @@
   "description": "Sample PactumJS API testing project",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter mochawesome"
+    "test": "mocha",
+    "test+report": "mocha --reporter mochawesome"
   },
   "author": "Aleksandar Zeljkovic",
   "license": "ISC",

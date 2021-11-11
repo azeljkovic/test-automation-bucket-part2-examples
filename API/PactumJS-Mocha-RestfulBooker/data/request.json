@@ -2,5 +2,9 @@
   "existentFirstname": "Anita",
   "existentLastname": "Deavers",
   "existentCheckinDate": "2020-03-01",
-  "existentCheckoutDate": "2020-03-05"
+  "existentCheckoutDate": "2020-03-05",
+  "nonExistentFirstname": "Henry",
+  "nonExistentLastname": "James",
+  "nonExistentCheckinDate": "2013-03-01",
+  "nonExistentCheckoutDate": "2015-07-20"
 }
