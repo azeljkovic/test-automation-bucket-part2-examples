@@ -1,3 +1,5 @@
 {
-  "booking": "/booking"
+  "booking": "/booking",
+  "validID": "/4",
+  "invalidID": "/99"
 }

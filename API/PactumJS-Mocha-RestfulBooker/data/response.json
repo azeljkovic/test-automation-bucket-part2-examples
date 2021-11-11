@@ -1,5 +1,7 @@
 {
   "allBookingsLength": 10,
   "validBookingIDFirstnameLastname": 4,
-  "validBookingIDCheckinCheckoutDate": 5
+  "validBookingIDCheckinCheckoutDate": 5,
+  "emptyAcceptHeaderMessage": "I'm a teapot",
+  "invalidIDMessage": "Not Found"
 }

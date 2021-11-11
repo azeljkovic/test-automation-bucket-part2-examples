@@ -1,0 +1,10 @@
+{
+  "firstname": "Anita",
+  "lastname": "Deavers",
+  "totalprice": 100,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2022-11-29",
+    "checkout": "2022-12-10"
+  }
+}
