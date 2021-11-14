@@ -3,5 +3,6 @@
   "validBookingIDFirstnameLastname": 4,
   "validBookingIDCheckinCheckoutDate": 5,
   "emptyAcceptHeaderMessage": "I'm a teapot",
-  "invalidIDMessage": "Not Found"
+  "invalidIDMessage": "Not Found",
+  "badCredentialsMessage": "Bad credentials"
 }
