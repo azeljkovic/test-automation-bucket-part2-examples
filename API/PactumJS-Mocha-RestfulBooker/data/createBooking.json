@@ -1,0 +1,11 @@
+{
+  "firstname": "Jack",
+  "lastname": "Ross",
+  "totalprice": 170,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2021-11-01",
+    "checkout": "2021-11-10"
+  },
+  "additionalneeds": "Smoking Room"
+}
