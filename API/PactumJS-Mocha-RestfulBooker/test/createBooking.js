@@ -1,9 +1,7 @@
 const endpoints = require('../data/endpoints.json');
 const requestJSON = require('../data/createBooking.json');
 const pactum = require('pactum');
-const request = pactum.request;
 
-request.setBaseUrl('http://localhost:3001');
 
 it('Create valid booking', async () => {
     await pactum.spec()

@@ -2,10 +2,7 @@ const endpoints = require('../data/endpoints.json');
 const authData = require('../data/auth.json');
 const pactum = require('pactum');
 const responseData = require("../data/response.json");
-const requestJSON = require("../data/createBooking.json");
-const request = pactum.request;
 
-request.setBaseUrl('http://localhost:3001');
 
 it('Create token - valid', async () => {
     await pactum.spec()

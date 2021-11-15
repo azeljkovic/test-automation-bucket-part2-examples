@@ -2,9 +2,7 @@ const endpoints = require('../data/endpoints.json');
 const validResponseJSON = require('../data/validResponse.json');
 const responseData = require('../data/response.json');
 const pactum = require('pactum');
-const request = pactum.request;
 
-request.setBaseUrl('http://localhost:3001');
 
 it('Get specific valid ID', async () => {
     await pactum.spec()
