@@ -10,6 +10,7 @@
   "author": "Aleksandar Zeljkovic",
   "license": "ISC",
   "devDependencies": {
+    "axios": "^0.24.0",
     "mocha": "^9.1.3",
     "mochawesome": "^7.0.1",
     "pactum": "^3.0.21"

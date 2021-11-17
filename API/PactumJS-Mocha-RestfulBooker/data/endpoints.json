@@ -1,6 +1,7 @@
 {
   "booking": "/booking",
   "validID": "/4",
+  "updateID": "/3",
   "invalidID": "/99",
   "getToken": "/auth"
 }
