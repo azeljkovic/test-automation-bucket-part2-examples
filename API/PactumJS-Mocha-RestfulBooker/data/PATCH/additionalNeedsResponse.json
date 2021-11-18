@@ -1,0 +1,11 @@
+{
+  "firstname": "John",
+  "lastname": "Bradley",
+  "totalprice": 130,
+  "depositpaid": false,
+  "bookingdates": {
+    "checkin": "2022-06-22",
+    "checkout": "2022-08-22"
+  },
+  "additionalneeds": "Air Condition"
+}

@@ -1,0 +1,10 @@
+{
+  "firstname": "Lilly",
+  "lastname": "Jean",
+  "totalprice": 500,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2020-03-01",
+    "checkout": "2020-03-05"
+  }
+}

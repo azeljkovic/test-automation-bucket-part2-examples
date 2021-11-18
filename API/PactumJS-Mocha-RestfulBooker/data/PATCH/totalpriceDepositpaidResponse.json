@@ -1,0 +1,11 @@
+{
+  "firstname": "Steven",
+  "lastname": "Ellis",
+  "totalprice": 3000,
+  "depositpaid": true,
+  "bookingdates": {
+    "checkin": "2019-12-29",
+    "checkout": "2020-01-07"
+  },
+  "additionalneeds": "Wheelchair"
+}

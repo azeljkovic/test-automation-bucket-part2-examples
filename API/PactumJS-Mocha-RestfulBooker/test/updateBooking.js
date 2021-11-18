@@ -6,7 +6,7 @@ const pactum = require('pactum');
 
 it('Update booking - valid', async () => {
     await pactum.spec()
-        .put(endpoints.booking + endpoints.updateID)
+        .put(endpoints.booking + 5)
         .withAuth(authData.validUsername, authData.validPassword)
         .withHeaders('Accept', 'application/json')
         .withBody(requestJSON)
