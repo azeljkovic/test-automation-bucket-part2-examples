@@ -4,7 +4,7 @@ const authData = require('../data/auth.json');
 const pactum = require('pactum');
 
 
-it.only('Update booking', async () => {
+it('Update booking - valid', async () => {
     await pactum.spec()
         .put(endpoints.booking + endpoints.updateID)
         .withAuth(authData.validUsername, authData.validPassword)
@@ -12,5 +12,15 @@ it.only('Update booking', async () => {
         .withBody(requestJSON)
         .expectStatus(200)
         .expectHeaderContains('content-type', 'application/json')
-        //.expectJsonMatch('booking', requestJSON);
+        .expectJson(requestJSON);
+});
+
+it('Update booking - non-existent', async () => {
+    await pactum.spec()
+        .put(endpoints.booking + endpoints.invalidID)
+        .withAuth(authData.validUsername, authData.validPassword)
+        .withHeaders('Accept', 'application/json')
+        .withBody(requestJSON)
+        .expectStatus(405)
+        .expectHeaderContains('content-type', 'text/plain');
 });
